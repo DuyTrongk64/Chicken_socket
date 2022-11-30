@@ -126,6 +126,7 @@ int Game::connectSocket()
 //Con/Des
 Game::Game()
 {
+	
 	this->initWindow();
 	this->initTextures();
 	this->initGUI();
@@ -134,7 +135,7 @@ Game::Game()
 
 	this->initPlayer();
 	this->initCheckens();
-	this->connectSocket();
+	
 }
 
 Game::~Game()
@@ -172,6 +173,7 @@ void Game::run()
 {
 	while (this->window->isOpen())
 	{
+		this->connectSocket();
 		this->updatePollEvents();
 
 		if (this->player->getHp() > 0)

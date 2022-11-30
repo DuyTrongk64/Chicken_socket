@@ -43,17 +43,18 @@ int main()
 	bind(server_sock, (struct sockaddr*)&server, sizeof(server));
 	printf("\nServer is running on port %d\n", PORT);
 
+	listen(server_sock, 5);
 	int client_socket;
 	client_socket = accept(server_sock, NULL, NULL);
 	send(client_socket, server_mesg, sizeof(server_mesg), 0);
 	
-	do
+	while (1)
 	{
 		listen(server_sock, 5);
 		read(client_socket, buff, 1024);
-		printf("%s\n", buff);
-		return 0;
-	} while (1);
+		printf("From client:%s\n", buff);
+		
+	} 
 	
 	return 0;
 }
