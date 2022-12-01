@@ -1,35 +1,20 @@
 #pragma once
 
 #include<map>
-#include<string>
-#include<sstream>
-#include<bits/stdc++.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <ctype.h>
 
+#include "Soc_connect.h"
 #include"Player.h"
 #include"plBullet.h"
 #include"Chickens.h"
 #include "ckBullets.h"
 
-using namespace std;
-#define SERV_PORT 5550
-#define SERV_IP "127.0.0.1"
-#define BUFF_SIZE 1024
+
+
 
 class Game
 {
 private:
-	//Socket
 	
-	int bytes_sent, bytes_received, sin_size;
-	int client_sock;
-	struct sockaddr_in server_addr;
-	char buff[BUFF_SIZE];
-	char server_response[256];
 
 	//Window
 	sf::RenderWindow* window;
@@ -55,7 +40,9 @@ private:
 
 	//Player
 	Player* player;
-	//Checkens* chickens;
+
+	//Socket
+	Soc_connect* socket;
 
 	//PlayerGUI
 	sf::RectangleShape playerHpBar;
@@ -74,13 +61,12 @@ private:
 	void initGUI();
 	void initWorld();
 	void initSystems();
+	void initSocket();
 
 	void initPlayer();
 	void initCheckens();
 	void initckBullets();
 
-	//Socket connect
-	int connectSocket();
 
 public:
 	Game();

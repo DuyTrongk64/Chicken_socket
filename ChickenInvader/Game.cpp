@@ -62,6 +62,12 @@ void Game::initSystems()
 	this->points = 0;
 }
 
+void Game::initSocket()
+{
+	this->socket = new Soc_connect();
+}
+
+
 void Game::initPlayer()
 {
 	this->player = new Player();
@@ -80,59 +86,17 @@ void Game::initckBullets()
 	this->spawnTimer1 = this->spawnTimerMax;
 }
 
-int Game::connectSocket()
-{
-	// Step 1: Construct a UDP socket
-	if ((client_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-		// Call socket() to create a socket
-		perror("\nError: ");
-		return 0;
-	}
-
-	// Step 2: Define the address of the server
-	//bzero(&server_addr, sizeof(server_addr));
-	server_addr.sin_family = AF_INET;
-	server_addr.sin_port = htons(SERV_PORT);
-	server_addr.sin_addr.s_addr = inet_addr(SERV_IP); // converse ip adderss from string to network ip (int)
-	std::cout << "Server IP: " << SERV_IP << " - Port: d" << SERV_PORT << "\n";
-
-	// Convert IPv4 and IPv6 addresses from text to binary form
-	if (inet_pton(AF_INET, SERV_IP, &server_addr.sin_addr) <= 0)
-	{
-		printf("\nInvalid address/ Address not supported \n");
-		return -1;
-	}
-
-	if (connect(client_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0)
-	{
-		std::cout << "Connection Failed" <<"\n";
-		return -1;
-	}
-
-	recv(client_sock, &server_response, sizeof(server_response), 0);
-
-	std::cout << "Tu server: "<< server_response << "\n";
-	char password[BUFF_SIZE] = "test send mes";
-	while (1)
-	{
-		send(client_sock, password, sizeof(password), 0);
-
-		recv(client_sock, &server_response, sizeof(server_response), 0);
-		std::cout << "Tu server: "<< server_response << "\n";
-	}
-	return 0;
-}
 
 //Con/Des
 Game::Game()
 {
 	
 	this->initWindow();
+	this->initSocket();
 	this->initTextures();
 	this->initGUI();
 	this->initWorld();
 	this->initSystems();
-
 	this->initPlayer();
 	this->initCheckens();
 	
@@ -142,7 +106,7 @@ Game::~Game()
 {
 	delete this->window;
 	delete this->player;
-
+	//delete this->socket;
 	//Delete textures
 	for (auto& i : this->textures)
 	{
@@ -173,12 +137,12 @@ void Game::run()
 {
 	while (this->window->isOpen())
 	{
-		this->connectSocket();
+		
 		this->updatePollEvents();
 
 		if (this->player->getHp() > 0)
 			this->update();
-
+		
 		this->render();
 	}
 }
@@ -380,6 +344,7 @@ void Game::updateCombat()
 
 void Game::update()
 {
+	this->socket->con_socket();
 	this->updateInput();
 
 	this->player->update();
@@ -413,6 +378,7 @@ void Game::renderWorld()
 
 void Game::render()
 {
+	
 	this->window->clear();
 
 	//Draw world
@@ -444,4 +410,6 @@ void Game::render()
 		this->window->draw(this->gameOverText);
 
 	this->window->display();
+
+	
 }
