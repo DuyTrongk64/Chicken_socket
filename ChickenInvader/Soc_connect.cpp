@@ -38,19 +38,14 @@ void Soc_connect::con_socket()
 		std::cout << "Connection Failed" << "\n";
 		return ;
 	}
-	/*
-	recv(this->client_sock, &this->server_response, sizeof(this->server_response), 0);
-
-	std::cout << "Tu server: " << server_response << "\n";
-	char password[BUFF_SIZE] = "test send mes";
-	while (1)
-	{
-		send(this->client_sock, password, sizeof(password), 0);
-
-		recv(this->client_sock, &this->server_response, sizeof(this->server_response), 0);
-		std::cout << "Tu server: " << this->server_response << "\n";
-	}
-	*/
+	
 	
 	return ;
+}
+
+void Soc_connect::send_point(int point)
+{
+	string s = to_string(point);
+	const char* p = s.c_str();
+	send(this->client_sock, p, sizeof(p), 0);
 }

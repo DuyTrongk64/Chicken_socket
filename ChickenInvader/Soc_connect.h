@@ -32,6 +32,9 @@ public:
 
 	//Socket connect
 	void con_socket();
+	//Send mess
+	void send_point(int point);
+
 };
 
 #endif // !SOC_CONNECT

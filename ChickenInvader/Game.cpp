@@ -409,9 +409,7 @@ void Game::render()
 	{
 		this->window->draw(this->gameOverText);
 	
-		string s = to_string(points);
-		const char* p = s.c_str();
-		send(socket->client_sock, p, sizeof(p), 0);
+		socket->send_point(points);
 		
 	}
 
