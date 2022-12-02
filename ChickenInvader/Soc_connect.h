@@ -1,6 +1,7 @@
 #ifndef SOC_CONNECT
 #define SOC_CONNECT
 
+#include<iostream>
 #include<string>
 #include<sstream>
 #include<bits/stdc++.h>
@@ -17,7 +18,7 @@ using namespace std;
 
 class Soc_connect
 {
-private:
+public:
 	//Socket
 
 	int bytes_sent, bytes_received, sin_size;
@@ -25,7 +26,7 @@ private:
 	struct sockaddr_in server_addr;
 	char buff[BUFF_SIZE];
 	char server_response[256];
-public:
+
 	Soc_connect();
 	virtual ~Soc_connect();
 

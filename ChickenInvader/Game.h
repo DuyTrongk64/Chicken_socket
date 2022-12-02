@@ -36,7 +36,7 @@ private:
 	sf::Sprite worldBackground;
 
 	//Systems
-	unsigned points;
+	int points;
 
 	//Player
 	Player* player;

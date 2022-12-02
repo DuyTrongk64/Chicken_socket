@@ -38,7 +38,7 @@ void Soc_connect::con_socket()
 		std::cout << "Connection Failed" << "\n";
 		return ;
 	}
-
+	/*
 	recv(this->client_sock, &this->server_response, sizeof(this->server_response), 0);
 
 	std::cout << "Tu server: " << server_response << "\n";
@@ -50,6 +50,7 @@ void Soc_connect::con_socket()
 		recv(this->client_sock, &this->server_response, sizeof(this->server_response), 0);
 		std::cout << "Tu server: " << this->server_response << "\n";
 	}
-	//close(this->client_sock);
+	*/
+	
 	return ;
 }

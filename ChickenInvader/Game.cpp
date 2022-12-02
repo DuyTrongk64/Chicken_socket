@@ -90,7 +90,6 @@ void Game::initckBullets()
 //Con/Des
 Game::Game()
 {
-	
 	this->initWindow();
 	this->initSocket();
 	this->initTextures();
@@ -106,7 +105,7 @@ Game::~Game()
 {
 	delete this->window;
 	delete this->player;
-	//delete this->socket;
+	delete this->socket;
 	//Delete textures
 	for (auto& i : this->textures)
 	{
@@ -344,7 +343,7 @@ void Game::updateCombat()
 
 void Game::update()
 {
-	this->socket->con_socket();
+	
 	this->updateInput();
 
 	this->player->update();
@@ -380,7 +379,7 @@ void Game::render()
 {
 	
 	this->window->clear();
-
+	
 	//Draw world
 	this->renderWorld();
 
@@ -407,7 +406,14 @@ void Game::render()
 
 	//Game over screen
 	if (this->player->getHp() <= 0)
+	{
 		this->window->draw(this->gameOverText);
+	
+		string s = to_string(points);
+		const char* p = s.c_str();
+		send(socket->client_sock, p, sizeof(p), 0);
+		
+	}
 
 	this->window->display();
 
