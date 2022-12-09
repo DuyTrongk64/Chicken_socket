@@ -8,5 +8,5 @@ g++ -o server server.cpp
 ./server
 
 Step 3: build and run game:
-g++ -o main main.cpp Chickens.cpp ckBullets.cpp Player.cpp plBullet.cpp Soc_connect.cpp Game.cpp -lsfml-graphics -lsfml-window -lsfml-system
+g++ -o main main.cpp Chickens.cpp ckBullets.cpp Player.cpp plBullet.cpp Soc_connect.cpp Game.cpp -lsfml-graphics -lsfml-window -lsfml-system 
 ./main
